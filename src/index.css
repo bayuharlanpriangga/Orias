@@ -112,7 +112,11 @@ footer p { text-align: center; } footer > span { text-align: right; }
 .catalog-nav { height: 78px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
 .catalog-nav .active-link { color: var(--lime); }
 .catalog-hero { padding-top: 32px; }
-.ad-slider { height: 410px; position: relative; overflow: hidden; border-radius: 13px; transition: background .4s ease; }
+.ad-viewport { height: 410px; position: relative; overflow: hidden; border-radius: 13px; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; outline: none; }
+.ad-viewport:active { cursor: grabbing; }
+.ad-viewport:focus-visible { box-shadow: 0 0 0 2px var(--lime); }
+.ad-track { display: flex; height: 100%; will-change: transform; }
+.ad-slide { position: relative; flex: 0 0 100%; height: 100%; overflow: hidden; }
 .ad-grid { position: absolute; inset: 0; opacity: .09; background-image: linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px); background-size: 48px 48px; }
 .ad-copy { position: relative; z-index: 2; height: 100%; padding: 54px 60px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
 .ad-copy > span { color: var(--lime); text-transform: uppercase; letter-spacing: .18em; font: 700 10px "Manrope"; }
@@ -124,12 +128,6 @@ footer p { text-align: center; } footer > span { text-align: right; }
 .ad-code small { color: #9ca398; font-size: 9px; text-transform: uppercase; letter-spacing: .1em; }
 .ad-code strong { font: 700 15px "Manrope"; margin-top: 3px; }
 .ad-orbit { position: absolute; right: 9%; bottom: -35%; width: 350px; height: 350px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; color: rgba(255,255,255,.1); font: 800 230px "Manrope"; display: grid; place-items: center; transform: rotate(-12deg); }
-.slider-controls { position: absolute; z-index: 4; right: 32px; bottom: 28px; display: flex; align-items: center; gap: 13px; }
-.slider-controls button { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; background: rgba(0,0,0,.15); color: white; cursor: pointer; }
-.slider-controls span { font-size: 9px; color: #bbc0b7; letter-spacing: .1em; }
-.slider-dots { position: absolute; z-index: 4; left: 60px; bottom: 30px; display: flex; gap: 5px; }
-.slider-dots button { width: 22px; height: 2px; border: 0; background: rgba(255,255,255,.25); padding: 0; cursor: pointer; transition: width .3s; }
-.slider-dots button.active { width: 42px; background: var(--lime); }
 .full-catalog { padding-top: 95px; padding-bottom: 120px; }
 .full-catalog-title { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
 .full-catalog-title h2 { margin: 9px 0 7px; font: 600 clamp(34px, 4vw, 52px)/1.08 "Manrope"; letter-spacing: -.05em; }
@@ -251,14 +249,7 @@ footer p { text-align: center; } footer > span { text-align: right; }
   .catalog-nav { height: 66px; padding-left: 20px; padding-right: 20px; }
   .catalog-nav .desktop-nav { display: none; }
   .catalog-hero { padding: 16px 12px 0; }
-  .ad-slider { height: 460px; }
-  .ad-copy { padding: 40px 25px; justify-content: flex-start; padding-top: 72px; }
-  .ad-copy h1 { font-size: 43px; }
-  .ad-code { top: auto; right: 23px; bottom: 76px; }
-  .ad-orbit { right: -40%; bottom: -25%; }
-  .slider-dots { left: 25px; bottom: 31px; }
-  .slider-controls { display: none; }
-  .full-catalog { padding-top: 70px; }
+      .full-catalog { padding-top: 70px; }
   .full-catalog-title { align-items: flex-start; flex-direction: column; }
   .catalog-toolbar { align-items: flex-start; flex-direction: column; border: 0; }
   .catalog-toolbar .category-row { margin-bottom: 10px; }
@@ -284,4 +275,82 @@ footer p { text-align: center; } footer > span { text-align: right; }
   .order-summary { align-items: stretch; flex-direction: column; gap: 16px; }
   .order-summary button { justify-content: space-between; }
   .terms-note { text-align: left; line-height: 1.5; }
+}
+
+/* ===== Mobile: tampilan dirapatkan (gaya marketplace top up) ===== */
+@media (max-width: 560px) {
+  .section-shell { padding-left: 16px; padding-right: 16px; }
+  .brand { font-size: 16px; gap: 8px; }
+  .brand-mark { width: 24px; height: 24px; font-size: 12px; border-radius: 6px; }
+
+  /* Navigasi */
+  .nav-shell, .catalog-nav, .detail-nav { height: 54px; padding-left: 16px; padding-right: 16px; }
+
+  /* Banner iklan: ringkas, geser dengan gestur */
+  .catalog-hero { padding: 12px 16px 0; }
+  .ad-viewport { height: 196px; border-radius: 12px; }
+  .ad-copy { padding: 18px 18px 54px; justify-content: center; }
+  .ad-copy > span { font-size: 9px; letter-spacing: .14em; }
+  .ad-copy h1 { margin: 6px 0 6px; font-size: 25px; line-height: 1.04; letter-spacing: -.05em; }
+  .ad-copy p { max-width: 78%; font-size: 11px; line-height: 1.45; margin: 0; }
+  .ad-copy button { position: absolute; left: 18px; bottom: 16px; margin: 0; height: 34px; padding: 0 13px; gap: 16px; font-size: 11px; }
+  .ad-copy svg { width: 13px; }
+  .ad-code { top: auto; right: 16px; bottom: 16px; padding: 6px 10px; transform: rotate(2deg); }
+  .ad-code small { font-size: 7px; }
+  .ad-code strong { font-size: 12px; }
+  .ad-orbit { right: -22%; bottom: -45%; width: 230px; height: 230px; font-size: 150px; }
+
+  /* Beranda */
+  .hero { min-height: 440px; }
+  .hero-content { margin-top: 100px; padding: 0 16px; }
+  .hero h1 { font-size: 38px; margin: 12px 0 14px; }
+  .hero-content > p { font-size: 13px; line-height: 1.55; }
+  .hero-actions { margin-top: 22px; gap: 16px; }
+  .primary-button { height: 44px; padding: 0 18px; gap: 16px; font-size: 13px; }
+  .catalog { padding-top: 44px; padding-bottom: 48px; }
+  .section-heading h2, .quick-copy h2, .promo h2 { font-size: 26px; }
+  .more-games { height: 38px; font-size: 11px; }
+  .quick-section { padding-top: 44px; padding-bottom: 44px; gap: 30px; }
+  .promo { min-height: 200px; padding: 24px 20px; margin-bottom: 40px; }
+  .promo::after { font-size: 130px; }
+
+  /* Katalog */
+  .full-catalog { padding-top: 32px; padding-bottom: 56px; }
+  .full-catalog-title { gap: 14px; }
+  .full-catalog-title h2 { margin: 6px 0 4px; font-size: 24px; letter-spacing: -.04em; }
+  .full-catalog-title p { font-size: 11px; }
+  .search-box { height: 42px; }
+  .catalog-toolbar { align-items: stretch; margin-top: 18px; margin-bottom: 14px; }
+  .catalog-toolbar .category-row, .category-row { flex-wrap: nowrap; overflow-x: auto; margin: 0 0 8px; scrollbar-width: none; }
+  .category-row::-webkit-scrollbar { display: none; }
+  .category-row button { flex: none; white-space: nowrap; padding: 6px 13px; font-size: 11px; }
+  .catalog-toolbar > span { margin-bottom: 6px; }
+
+  /* Kartu game: 2 kolom, lebih pendek */
+  .game-grid { gap: 16px 10px; }
+  .game-art, .popular-grid .game-art { height: 118px; border-radius: 8px; }
+  .game-mark { font-size: 84px; right: -6px; bottom: -22px; }
+  .game-code { left: 10px; bottom: 9px; font-size: 11px; }
+  .popular { top: 8px; left: 8px; padding: 3px 6px; font-size: 7px; }
+  .game-info { padding-top: 8px; }
+  .game-info strong { font-size: 12px; }
+  .game-info small { font-size: 10px; margin-top: 2px; }
+
+  /* Halaman top up */
+  .game-banner { height: 150px; }
+  .banner-copy strong { font-size: 42px; }
+  .banner-copy span { font-size: 9px; }
+  .banner-letter { font-size: 190px; bottom: -50px; }
+  .detail-layout { padding-left: 16px; padding-right: 16px; padding-bottom: 56px; }
+  .purchase-flow { padding-top: 24px; }
+  .purchase-card { padding: 16px 14px; margin-bottom: 10px; }
+  .card-step { gap: 12px; margin-bottom: 16px; }
+  .card-step > span { width: 26px; height: 26px; }
+  .card-step h2 { font-size: 15px; }
+  .account-fields input { height: 44px; }
+  .detail-nominals { gap: 8px; }
+  .detail-nominals button { min-height: 74px; padding: 11px; }
+  .payment-list button { min-height: 56px; }
+  .order-summary { padding: 16px; }
+  footer { min-height: 0; padding-top: 28px; padding-bottom: 28px; gap: 12px; }
 }

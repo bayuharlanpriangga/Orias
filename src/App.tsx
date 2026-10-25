@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Game = {
   name: string;
@@ -130,23 +130,106 @@ const campaignBanners = [
   { tag: "Member Exclusive", title: "Harga spesial\nuntuk para regular.", copy: "Nikmati harga terbaik untuk judul game favoritmu.", accent: "from-[#533124] to-[#1d120f]", code: "NEXAPLAY" },
 ];
 
-function CatalogPage({ onChoose, onHome }: { onChoose: (game: Game) => void; onHome: () => void }) {
+function AdSlider() {
   const [slide, setSlide] = useState(0);
+  const [dragX, setDragX] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const viewport = useRef<HTMLDivElement>(null);
+  const start = useRef<{ x: number; y: number; locked: boolean } | null>(null);
+  const last = campaignBanners.length - 1;
+
+  // Auto-geser tiap 5 detik; berhenti selama jari/mouse sedang menyentuh banner.
+  useEffect(() => {
+    if (dragging) return;
+    const timer = window.setTimeout(() => setSlide((current) => (current === last ? 0 : current + 1)), 5000);
+    return () => window.clearTimeout(timer);
+  }, [slide, dragging, last]);
+
+  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    start.current = { x: event.clientX, y: event.clientY, locked: false };
+    setDragging(true);
+  };
+
+  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const origin = start.current;
+    if (!origin) return;
+    const dx = event.clientX - origin.x;
+    const dy = event.clientY - origin.y;
+    if (!origin.locked) {
+      // Baru dianggap geseran kalau dominan horizontal; scroll vertikal tetap milik browser.
+      if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+        origin.locked = true;
+        event.currentTarget.setPointerCapture(event.pointerId);
+      } else return;
+    }
+    const atEdge = (slide === 0 && dx > 0) || (slide === last && dx < 0);
+    setDragX(atEdge ? dx * 0.3 : dx);
+  };
+
+  const endDrag = () => {
+    if (!start.current) return;
+    start.current = null;
+    const threshold = (viewport.current?.offsetWidth ?? 300) * 0.15;
+    if (dragX < -threshold && slide < last) setSlide(slide + 1);
+    else if (dragX > threshold && slide > 0) setSlide(slide - 1);
+    setDragX(0);
+    setDragging(false);
+  };
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "ArrowLeft" && slide > 0) setSlide(slide - 1);
+    if (event.key === "ArrowRight" && slide < last) setSlide(slide + 1);
+  };
+
+  return (
+    <div
+      className="ad-viewport"
+      ref={viewport}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Promo"
+      tabIndex={0}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onKeyDown={onKeyDown}
+    >
+      <div
+        className="ad-track"
+        style={{
+          transform: `translate3d(calc(${-slide * 100}% + ${dragX}px), 0, 0)`,
+          transition: dragging ? "none" : "transform .35s cubic-bezier(.2,.8,.2,1)",
+        }}
+      >
+        {campaignBanners.map((campaign, index) => (
+          <div className={`ad-slide bg-gradient-to-br ${campaign.accent}`} aria-hidden={index !== slide} key={campaign.code}>
+            <span className="ad-grid" />
+            <div className="ad-copy">
+              <span>{campaign.tag}</span>
+              <h1>{campaign.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
+              <p>{campaign.copy}</p>
+              <button tabIndex={index === slide ? 0 : -1} onClick={() => document.getElementById("all-games")?.scrollIntoView({ behavior: "smooth" })}>Lihat game <ArrowIcon /></button>
+            </div>
+            <div className="ad-code"><small>Gunakan kode</small><strong>{campaign.code}</strong></div>
+            <span className="ad-orbit">N</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CatalogPage({ onChoose, onHome }: { onChoose: (game: Game) => void; onHome: () => void }) {
   const [category, setCategory] = useState("Semua");
   const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setSlide((current) => (current + 1) % campaignBanners.length), 5000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   const visibleGames = useMemo(() => games.filter((game) => {
     const matchesCategory = category === "Semua" || game.category === category;
     const matchesSearch = `${game.name} ${game.publisher}`.toLowerCase().includes(query.toLowerCase());
     return matchesCategory && matchesSearch;
   }), [category, query]);
-
-  const campaign = campaignBanners[slide];
 
   return (
     <main className="catalog-page min-h-screen bg-[#0b0d0c] text-[#f3f4ec]">
@@ -157,23 +240,7 @@ function CatalogPage({ onChoose, onHome }: { onChoose: (game: Game) => void; onH
       </nav>
 
       <section className="catalog-hero section-shell">
-        <div className={`ad-slider bg-gradient-to-br ${campaign.accent}`}>
-          <span className="ad-grid" />
-          <div className="ad-copy">
-            <span>{campaign.tag}</span>
-            <h1>{campaign.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
-            <p>{campaign.copy}</p>
-            <button onClick={() => document.getElementById("all-games")?.scrollIntoView({ behavior: "smooth" })}>Lihat game <ArrowIcon /></button>
-          </div>
-          <div className="ad-code"><small>Gunakan kode</small><strong>{campaign.code}</strong></div>
-          <span className="ad-orbit">N</span>
-          <div className="slider-controls">
-            <button onClick={() => setSlide((slide - 1 + campaignBanners.length) % campaignBanners.length)} aria-label="Slide sebelumnya">←</button>
-            <span>{String(slide + 1).padStart(2, "0")} / {String(campaignBanners.length).padStart(2, "0")}</span>
-            <button onClick={() => setSlide((slide + 1) % campaignBanners.length)} aria-label="Slide berikutnya">→</button>
-          </div>
-          <div className="slider-dots">{campaignBanners.map((_, index) => <button aria-label={`Pilih slide ${index + 1}`} className={index === slide ? "active" : ""} onClick={() => setSlide(index)} key={index} />)}</div>
-        </div>
+        <AdSlider />
       </section>
 
       <section className="full-catalog section-shell" id="all-games">
