@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #0b0d0c; font-family: "DM Sans", sans-serif; }
+  button, input { font: inherit; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  svg { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+}
+
+:root { --lime: #c7f36b; --paper: #f3f4ec; --muted: #999e95; --line: rgba(255,255,255,.12); }
+.section-shell { max-width: 1220px; margin: 0 auto; padding-left: 28px; padding-right: 28px; }
+.nav-shell { height: 78px; padding: 0 max(28px, calc((100vw - 1220px)/2 + 28px)); display: flex; align-items: center; justify-content: space-between; position: absolute; z-index: 20; width: 100%; border-bottom: 1px solid rgba(255,255,255,.12); }
+.brand { color: var(--paper); display: flex; align-items: center; gap: 10px; text-decoration: none; font: 800 19px "Manrope"; letter-spacing: -.03em; }
+.brand-mark { width: 28px; height: 28px; display: grid; place-items: center; color: #111; background: var(--lime); border-radius: 7px; font-size: 14px; transform: skew(-5deg); }
+.desktop-nav { display: flex; gap: 34px; }
+.desktop-nav a, .mobile-menu a { color: #d8dad4; text-decoration: none; font-size: 14px; transition: color .2s; }
+.desktop-nav a:hover { color: var(--lime); }
+.nav-actions { display: flex; align-items: center; gap: 18px; }
+.history-button { color: var(--paper); border: 0; background: transparent; display: flex; align-items: center; gap: 9px; font-size: 13px; cursor: pointer; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px rgba(199,243,107,.12); }
+.menu-button { display: none; border: 0; background: none; width: 34px; height: 34px; padding: 8px; }
+.menu-button span { display: block; height: 1px; background: white; margin: 5px 0; }
+.mobile-menu { position: absolute; top: 70px; right: 20px; padding: 20px; border: 1px solid var(--line); background: #151815; display: flex; flex-direction: column; gap: 18px; border-radius: 12px; }
+.hero { min-height: 720px; position: relative; display: flex; align-items: center; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; background-image: url("https://images.unsplash.com/photo-1696710257827-75e2e5954059?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=82&w=1800"); background-size: cover; background-position: 58% 50%; filter: saturate(.7) contrast(1.05); }
+.hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #090b0a 3%, rgba(9,11,10,.93) 32%, rgba(9,11,10,.35) 69%, rgba(9,11,10,.58)), linear-gradient(0deg, #0b0d0c 0%, transparent 25%); }
+.hero-content { position: relative; z-index: 2; max-width: 1220px; width: 100%; margin: 55px auto 0; padding: 0 28px; }
+.eyebrow, .kicker { text-transform: uppercase; letter-spacing: .16em; font: 700 11px "Manrope"; color: var(--lime); }
+.eyebrow { display: flex; align-items: center; gap: 10px; }
+.eyebrow span { width: 26px; height: 1px; background: var(--lime); }
+.hero h1 { max-width: 650px; margin: 18px 0 22px; font: 700 clamp(54px, 7.1vw, 96px)/.95 "Manrope"; letter-spacing: -.07em; }
+.hero h1 em { font-weight: 400; color: var(--lime); }
+.hero-content > p { max-width: 520px; color: #b7bbb3; font-size: 16px; line-height: 1.65; }
+.hero-actions { display: flex; align-items: center; gap: 30px; margin-top: 34px; }
+.primary-button { background: var(--lime); color: #111; height: 54px; padding: 0 22px; display: inline-flex; align-items: center; gap: 22px; border-radius: 7px; font-weight: 700; text-decoration: none; transition: transform .2s, background .2s; }
+.primary-button:hover { transform: translateY(-2px); background: #d7ff84; }
+.primary-button svg, .checkout svg, .promo a svg { width: 18px; height: 18px; }
+.trust-note { display: flex; align-items: center; gap: 12px; color: #838880; font-size: 11px; }
+.trust-note svg { width: 28px; height: 28px; color: var(--lime); }
+.trust-note span { display: flex; flex-direction: column; gap: 2px; }
+.trust-note strong { color: var(--paper); font-size: 13px; }
+.hero-stats { position: absolute; z-index: 3; bottom: 0; right: max(28px, calc((100vw - 1220px)/2 + 28px)); display: flex; border-top: 1px solid var(--line); }
+.hero-stats div { min-width: 150px; padding: 24px 22px; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.hero-stats strong { font: 700 22px "Manrope"; }
+.hero-stats span { color: #858a82; font-size: 11px; margin-top: 3px; }
+.catalog { padding-top: 100px; padding-bottom: 110px; }
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+.section-heading h2, .quick-copy h2, .promo h2 { margin: 10px 0 0; font: 600 clamp(34px, 4vw, 52px)/1.08 "Manrope"; letter-spacing: -.05em; }
+.search-box { width: 280px; height: 48px; border-bottom: 1px solid #4a4e49; display: flex; align-items: center; gap: 10px; }
+.search-box svg { width: 19px; color: #737870; }
+.search-box input { width: 100%; color: white; background: transparent; outline: none; border: 0; }
+.more-games { height: 43px; color: var(--paper); border: 1px solid var(--line); padding: 0 16px; border-radius: 6px; display: flex; align-items: center; gap: 22px; font-size: 12px; text-decoration: none; transition: .2s; }
+.more-games:hover { border-color: var(--lime); color: var(--lime); }
+.more-games svg { width: 15px; }
+.popular-grid { margin-top: 34px; grid-template-columns: repeat(3, 1fr); }
+.popular-grid .game-art { height: 320px; }
+.category-row { display: flex; gap: 7px; margin: 38px 0 26px; flex-wrap: wrap; }
+.category-row button { cursor: pointer; color: #969b92; border: 1px solid var(--line); border-radius: 100px; background: transparent; padding: 8px 17px; font-size: 12px; transition: .2s; }
+.category-row button.active { background: var(--paper); color: #111; border-color: var(--paper); }
+.game-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px 16px; }
+.game-card { padding: 0; border: 0; color: inherit; background: transparent; cursor: pointer; text-align: left; }
+.game-art { height: 260px; position: relative; overflow: hidden; border-radius: 9px; transition: transform .3s ease; }
+.game-card:hover .game-art { transform: translateY(-5px); }
+.art-grid { position: absolute; inset: 0; opacity: .16; background-image: linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px); background-size: 34px 34px; transform: perspective(500px) rotateX(55deg) scale(1.6); transform-origin: bottom; }
+.game-mark { position: absolute; right: -8px; bottom: -38px; font: 800 170px/.8 "Manrope"; color: rgba(255,255,255,.18); letter-spacing: -.12em; }
+.game-code { position: absolute; left: 20px; bottom: 18px; color: white; font: 800 18px "Manrope"; letter-spacing: -.05em; text-shadow: 0 2px 15px rgba(0,0,0,.35); }
+.popular { position: absolute; top: 14px; left: 14px; background: #10120f; color: var(--lime); border-radius: 4px; padding: 5px 8px; text-transform: uppercase; font: 700 9px "Manrope"; letter-spacing: .1em; }
+.game-info { display: flex; align-items: center; justify-content: space-between; padding: 14px 2px 0; }
+.game-info > span:first-child { display: flex; flex-direction: column; }
+.game-info strong { font: 600 14px "Manrope"; }
+.game-info small { color: #73786f; font-size: 11px; margin-top: 3px; }
+.card-arrow { width: 30px; height: 30px; border: 1px solid var(--line); display: grid; place-items: center; border-radius: 50%; color: #8f948a; }
+.card-arrow svg { width: 13px; }
+.empty-state { padding: 70px 0; text-align: center; color: var(--muted); border: 1px solid var(--line); border-radius: 8px; }
+.quick-section { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; padding-top: 100px; padding-bottom: 100px; border-top: 1px solid var(--line); }
+.quick-copy p { max-width: 470px; margin: 20px 0 38px; color: var(--muted); line-height: 1.7; }
+.steps { border-top: 1px solid var(--line); display: flex; max-width: 490px; }
+.steps span { flex: 1; display: flex; flex-direction: column; padding-top: 18px; color: #c7cac3; font-size: 13px; }
+.steps b { color: var(--lime); font-size: 10px; margin-bottom: 8px; }
+.topup-panel { background: #141714; border: 1px solid rgba(255,255,255,.1); padding: 26px; border-radius: 12px; box-shadow: 0 30px 80px rgba(0,0,0,.3); }
+.panel-top { display: flex; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid var(--line); font: 600 14px "Manrope"; }
+.panel-top small { color: #6f756c; font: 400 11px "DM Sans"; }
+.selected-game { display: flex; align-items: center; gap: 13px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.mini-art { width: 47px; height: 47px; display: grid; place-items: center; border-radius: 7px; font-weight: 800; color: white; }
+.selected-game > span:nth-child(2) { display: flex; flex: 1; flex-direction: column; }
+.selected-game small, .field-label { color: #747a71; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.selected-game strong { margin-top: 4px; font: 600 13px "Manrope"; }
+.selected-game button { color: var(--lime); background: none; border: 0; font-size: 11px; cursor: pointer; }
+.field-label { display: block; margin: 20px 0 9px; }
+.id-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; }
+.id-row input { min-width: 0; border: 1px solid var(--line); background: #0f110f; padding: 12px; color: white; outline: none; border-radius: 5px; font-size: 12px; }
+.id-row input:focus { border-color: var(--lime); }
+.nominal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.nominal-grid button { text-align: left; border: 1px solid var(--line); background: #101210; color: #ddd; padding: 11px 12px; border-radius: 5px; display: flex; flex-direction: column; cursor: pointer; }
+.nominal-grid button.chosen { border-color: var(--lime); background: rgba(199,243,107,.06); }
+.nominal-grid span { font-size: 11px; font-weight: 600; }
+.nominal-grid small { color: #7d827a; margin-top: 4px; font-size: 10px; }
+.checkout { margin-top: 18px; width: 100%; border: 0; border-radius: 6px; height: 48px; background: var(--lime); color: #10120f; display: flex; justify-content: center; align-items: center; gap: 15px; font-weight: 700; cursor: pointer; }
+.checkout:disabled { color: #757a72; background: #252925; cursor: not-allowed; }
+.promo { background: var(--lime); color: #10120f; min-height: 260px; border-radius: 12px; padding-top: 54px; padding-bottom: 54px; display: flex; align-items: center; justify-content: space-between; margin-top: 40px; margin-bottom: 100px; position: relative; overflow: hidden; }
+.promo::after { content: "20"; position: absolute; right: 20%; bottom: -60px; font: 800 240px/.8 "Manrope"; color: rgba(0,0,0,.07); }
+.promo-label { font: 700 10px "Manrope"; text-transform: uppercase; letter-spacing: .14em; }
+.promo h2 { margin-top: 7px; }
+.promo p { margin: 12px 0 0; color: #4c5245; font-size: 13px; }
+.promo a { z-index: 1; color: white; background: #111; text-decoration: none; padding: 15px 18px; border-radius: 6px; display: flex; gap: 20px; align-items: center; font-size: 13px; font-weight: 600; }
+footer { min-height: 180px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; color: #6f746c; font-size: 11px; }
+footer p { text-align: center; } footer > span { text-align: right; }
+
+.catalog-nav { height: 78px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.catalog-nav .active-link { color: var(--lime); }
+.catalog-hero { padding-top: 32px; }
+.ad-slider { height: 410px; position: relative; overflow: hidden; border-radius: 13px; transition: background .4s ease; }
+.ad-grid { position: absolute; inset: 0; opacity: .09; background-image: linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px); background-size: 48px 48px; }
+.ad-copy { position: relative; z-index: 2; height: 100%; padding: 54px 60px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+.ad-copy > span { color: var(--lime); text-transform: uppercase; letter-spacing: .18em; font: 700 10px "Manrope"; }
+.ad-copy h1 { display: flex; flex-direction: column; margin: 10px 0 14px; font: 700 clamp(42px, 5vw, 66px)/1 "Manrope"; letter-spacing: -.06em; }
+.ad-copy p { color: #b2b8ad; max-width: 400px; font-size: 13px; }
+.ad-copy button { margin-top: 17px; height: 44px; border: 0; border-radius: 6px; background: var(--lime); color: #111; padding: 0 17px; display: flex; align-items: center; gap: 24px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.ad-copy svg { width: 15px; }
+.ad-code { position: absolute; z-index: 3; right: 60px; top: 50px; padding: 13px 17px; border: 1px dashed rgba(255,255,255,.35); display: flex; flex-direction: column; transform: rotate(3deg); border-radius: 6px; }
+.ad-code small { color: #9ca398; font-size: 9px; text-transform: uppercase; letter-spacing: .1em; }
+.ad-code strong { font: 700 15px "Manrope"; margin-top: 3px; }
+.ad-orbit { position: absolute; right: 9%; bottom: -35%; width: 350px; height: 350px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; color: rgba(255,255,255,.1); font: 800 230px "Manrope"; display: grid; place-items: center; transform: rotate(-12deg); }
+.slider-controls { position: absolute; z-index: 4; right: 32px; bottom: 28px; display: flex; align-items: center; gap: 13px; }
+.slider-controls button { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; background: rgba(0,0,0,.15); color: white; cursor: pointer; }
+.slider-controls span { font-size: 9px; color: #bbc0b7; letter-spacing: .1em; }
+.slider-dots { position: absolute; z-index: 4; left: 60px; bottom: 30px; display: flex; gap: 5px; }
+.slider-dots button { width: 22px; height: 2px; border: 0; background: rgba(255,255,255,.25); padding: 0; cursor: pointer; transition: width .3s; }
+.slider-dots button.active { width: 42px; background: var(--lime); }
+.full-catalog { padding-top: 95px; padding-bottom: 120px; }
+.full-catalog-title { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
+.full-catalog-title h2 { margin: 9px 0 7px; font: 600 clamp(34px, 4vw, 52px)/1.08 "Manrope"; letter-spacing: -.05em; }
+.full-catalog-title p { margin: 0; color: #777d74; font-size: 12px; }
+.catalog-toolbar { display: flex; align-items: center; justify-content: space-between; margin-top: 34px; margin-bottom: 26px; border-bottom: 1px solid var(--line); }
+.catalog-toolbar .category-row { margin: 0 0 18px; }
+.catalog-toolbar > span { color: #666c63; font-size: 10px; margin-bottom: 18px; }
+.full-grid { grid-template-columns: repeat(4, 1fr); }
+
+.detail-nav { height: 78px; display: flex; align-items: center; justify-content: space-between; }
+.back-button, .help-button { border: 0; background: transparent; color: #a8ada4; cursor: pointer; font-size: 12px; }
+.back-button { display: flex; gap: 9px; align-items: center; }
+.help-button { border-bottom: 1px solid #596056; padding: 0 0 4px; }
+.game-banner { height: 330px; position: relative; overflow: hidden; }
+.banner-grid { position: absolute; inset: 0; opacity: .14; background-image: linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px); background-size: 55px 55px; transform: perspective(700px) rotateX(50deg) scale(1.4); }
+.banner-letter { position: absolute; right: 8%; bottom: -120px; color: rgba(255,255,255,.15); font: 800 430px/.8 "Manrope"; letter-spacing: -.12em; }
+.banner-copy { height: 100%; position: relative; display: flex; flex-direction: column; justify-content: center; text-shadow: 0 5px 25px rgba(0,0,0,.2); }
+.banner-copy span { text-transform: uppercase; letter-spacing: .2em; font: 700 11px "Manrope"; }
+.banner-copy strong { font: 800 clamp(55px, 9vw, 112px)/.95 "Manrope"; letter-spacing: -.07em; color: white; }
+.detail-layout { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 54px; align-items: start; padding-top: 0; padding-bottom: 100px; }
+.game-profile { position: sticky; top: 24px; margin-top: -62px; z-index: 2; background: #141714; border: 1px solid var(--line); border-radius: 11px; padding: 18px; }
+.profile-art { height: 260px; position: relative; overflow: hidden; border-radius: 7px; }
+.profile-art > span { position: absolute; right: -15px; bottom: -50px; color: rgba(255,255,255,.17); font: 800 210px/.8 "Manrope"; }
+.profile-art small { position: absolute; left: 18px; bottom: 16px; color: white; font: 800 17px "Manrope"; }
+.profile-title { display: flex; justify-content: space-between; align-items: center; padding: 20px 2px 16px; border-bottom: 1px solid var(--line); }
+.profile-title > span:first-child { display: flex; flex-direction: column; }
+.profile-title small { color: var(--lime); text-transform: uppercase; letter-spacing: .1em; font-size: 9px; }
+.profile-title h1 { margin: 5px 0 2px; font: 700 20px "Manrope"; letter-spacing: -.03em; }
+.profile-title p { margin: 0; color: #7a8077; font-size: 11px; }
+.verified { width: 23px; height: 23px; background: var(--lime); color: #111; display: grid; place-items: center; border-radius: 50%; font-size: 11px; }
+.profile-desc { color: #92978f; font-size: 12px; line-height: 1.65; margin: 17px 2px; }
+.profile-benefits { display: grid; gap: 11px; border-top: 1px solid var(--line); padding: 17px 2px 3px; color: #aeb2aa; font-size: 11px; }
+.profile-benefits span { display: flex; align-items: center; gap: 10px; }
+.profile-benefits b { width: 20px; color: var(--lime); font-size: 10px; }
+.purchase-flow { padding-top: 48px; }
+.purchase-card { background: #121512; border: 1px solid var(--line); border-radius: 10px; padding: 27px; margin-bottom: 14px; }
+.card-step { display: flex; gap: 17px; align-items: flex-start; margin-bottom: 24px; }
+.card-step > span { color: #111; background: var(--lime); width: 29px; height: 29px; border-radius: 6px; display: grid; place-items: center; font: 800 10px "Manrope"; }
+.card-step h2 { margin: 1px 0 4px; font: 600 17px "Manrope"; }
+.card-step p { margin: 0; color: #72776f; font-size: 11px; }
+.account-fields { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.account-fields.two-fields { grid-template-columns: 1.5fr 1fr; }
+.account-fields label { display: flex; flex-direction: column; gap: 8px; color: #a7aba3; font-size: 11px; }
+.account-fields input { background: #0c0e0c; border: 1px solid var(--line); color: white; outline: 0; height: 49px; border-radius: 6px; padding: 0 14px; font-size: 12px; }
+.account-fields input:focus { border-color: var(--lime); }
+.input-hint { margin: 11px 0 0; color: #656a63; font-size: 10px; }
+.detail-nominals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.detail-nominals button { position: relative; min-height: 95px; border: 1px solid var(--line); background: #0c0f0c; color: white; border-radius: 7px; padding: 13px; display: grid; grid-template-columns: 22px 1fr; text-align: left; cursor: pointer; }
+.detail-nominals button.selected { border-color: var(--lime); background: rgba(199,243,107,.055); box-shadow: inset 0 0 0 1px var(--lime); }
+.detail-nominals .diamond { color: var(--lime); font-size: 13px; }
+.detail-nominals button > span:nth-child(2) { display: flex; flex-direction: column; }
+.detail-nominals strong { font-size: 11px; }
+.detail-nominals small { color: var(--lime); font-size: 9px; margin-top: 3px; }
+.detail-nominals b { grid-column: 2; align-self: end; color: #8d9289; font-size: 11px; font-weight: 500; }
+.payment-list { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.payment-list button { min-height: 67px; border: 1px solid var(--line); background: #0c0f0c; color: white; border-radius: 7px; padding: 10px 13px; display: flex; align-items: center; text-align: left; gap: 12px; cursor: pointer; }
+.payment-list button.selected { border-color: var(--lime); }
+.pay-logo { width: 39px; height: 32px; border-radius: 5px; background: #edf0e8; color: #111; display: grid; place-items: center; font: 800 10px "Manrope"; }
+.payment-list button > span:nth-child(2) { display: flex; flex: 1; flex-direction: column; }
+.payment-list strong { font-size: 11px; }
+.payment-list small { color: #747a71; margin-top: 3px; font-size: 9px; }
+.payment-list i { color: var(--lime); font-style: normal; font-size: 11px; }
+.order-summary { background: #191d18; border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; }
+.order-summary > div { display: flex; flex-direction: column; }
+.order-summary span { color: #777d74; font-size: 10px; }
+.order-summary strong { margin-top: 4px; font: 700 20px "Manrope"; }
+.order-summary button { height: 46px; border: 0; border-radius: 6px; background: var(--lime); padding: 0 18px; color: #111; display: flex; align-items: center; gap: 28px; font-weight: 700; cursor: pointer; font-size: 12px; }
+.order-summary svg { width: 16px; }
+.terms-note { text-align: right; color: #555a53; font-size: 9px; margin-top: 10px; }
+
+@media (max-width: 850px) {
+  .desktop-nav, .history-button { display: none; }
+  .menu-button { display: block; }
+  .hero { min-height: 680px; align-items: flex-start; }
+  .hero-content { margin-top: 160px; }
+  .hero-content > p { max-width: 430px; }
+  .hero-stats { display: none; }
+  .game-grid { grid-template-columns: repeat(2, 1fr); }
+  .popular-grid { grid-template-columns: repeat(3, 1fr); }
+  .popular-grid .game-art { height: 240px; }
+  .quick-section { grid-template-columns: 1fr; gap: 50px; }
+  .promo { margin-left: 20px; margin-right: 20px; }
+  .catalog-nav .desktop-nav { display: flex; }
+  .catalog-nav .history-button { display: none; }
+  .full-grid { grid-template-columns: repeat(3, 1fr); }
+  .detail-layout { grid-template-columns: 1fr; gap: 0; }
+  .game-profile { position: relative; top: auto; display: grid; grid-template-columns: 180px 1fr; gap: 0 20px; }
+  .profile-art { grid-row: span 3; height: 180px; }
+  .profile-title { align-self: end; }
+  .purchase-flow { padding-top: 30px; }
+}
+
+@media (max-width: 560px) {
+  .section-shell { padding-left: 20px; padding-right: 20px; }
+  .nav-shell { height: 66px; padding: 0 20px; }
+  .hero { min-height: 680px; }
+  .hero-media { background-position: 67% center; }
+  .hero-shade { background: linear-gradient(90deg, rgba(9,11,10,.96), rgba(9,11,10,.54)), linear-gradient(0deg, #0b0d0c, transparent 55%); }
+  .hero-content { padding: 0 20px; margin-top: 145px; }
+  .hero h1 { font-size: 54px; }
+  .hero-actions { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .section-heading { align-items: flex-start; flex-direction: column; }
+  .search-box { width: 100%; }
+  .catalog { padding-top: 75px; padding-bottom: 80px; }
+  .game-grid { gap: 24px 10px; }
+  .popular-grid { grid-template-columns: 1fr 1fr; }
+  .popular-grid .game-art { height: 190px; }
+  .game-art { height: 190px; }
+  .game-mark { font-size: 120px; }
+  .game-code { left: 13px; bottom: 13px; font-size: 14px; }
+  .game-info strong { font-size: 12px; }
+  .card-arrow { display: none; }
+  .quick-section { padding-top: 75px; padding-bottom: 75px; }
+  .topup-panel { padding: 18px; }
+  .promo { min-height: 330px; padding: 34px 24px; align-items: flex-start; flex-direction: column; justify-content: space-between; margin-bottom: 70px; }
+  .promo::after { right: -20px; bottom: 45px; font-size: 180px; }
+  footer { grid-template-columns: 1fr; gap: 20px; padding-top: 40px; padding-bottom: 40px; }
+  footer p, footer > span { text-align: left; margin: 0; }
+  .catalog-nav { height: 66px; padding-left: 20px; padding-right: 20px; }
+  .catalog-nav .desktop-nav { display: none; }
+  .catalog-hero { padding: 16px 12px 0; }
+  .ad-slider { height: 460px; }
+  .ad-copy { padding: 40px 25px; justify-content: flex-start; padding-top: 72px; }
+  .ad-copy h1 { font-size: 43px; }
+  .ad-code { top: auto; right: 23px; bottom: 76px; }
+  .ad-orbit { right: -40%; bottom: -25%; }
+  .slider-dots { left: 25px; bottom: 31px; }
+  .slider-controls { display: none; }
+  .full-catalog { padding-top: 70px; }
+  .full-catalog-title { align-items: flex-start; flex-direction: column; }
+  .catalog-toolbar { align-items: flex-start; flex-direction: column; border: 0; }
+  .catalog-toolbar .category-row { margin-bottom: 10px; }
+  .full-grid { grid-template-columns: 1fr 1fr; }
+  .detail-nav { height: 66px; padding-left: 20px; padding-right: 20px; }
+  .help-button { display: none; }
+  .game-banner { height: 230px; }
+  .banner-letter { font-size: 260px; bottom: -70px; }
+  .detail-layout { padding-left: 20px; padding-right: 20px; }
+  .game-profile { margin-top: -38px; display: grid; grid-template-columns: 100px 1fr; padding: 13px; gap: 0 14px; }
+  .profile-art { height: 105px; grid-row: auto; }
+  .profile-art > span { font-size: 90px; bottom: -17px; }
+  .profile-art small { left: 9px; bottom: 8px; font-size: 9px; }
+  .profile-title { border: 0; padding: 5px 0; }
+  .profile-title h1 { font-size: 16px; }
+  .profile-desc, .profile-benefits { grid-column: 1 / -1; }
+  .profile-desc { margin-bottom: 10px; }
+  .profile-benefits { grid-template-columns: 1fr 1fr; }
+  .purchase-card { padding: 20px 16px; }
+  .account-fields.two-fields { grid-template-columns: 1fr; }
+  .detail-nominals { grid-template-columns: 1fr 1fr; }
+  .payment-list { grid-template-columns: 1fr; }
+  .order-summary { align-items: stretch; flex-direction: column; gap: 16px; }
+  .order-summary button { justify-content: space-between; }
+  .terms-note { text-align: left; line-height: 1.5; }
+}
